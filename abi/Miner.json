@@ -1,0 +1,746 @@
+[
+    {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "target",
+                "type": "address"
+            }
+        ],
+        "name": "AddressEmptyCode",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
+            }
+        ],
+        "name": "AddressInsufficientBalance",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "FailedInnerCall",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "owner",
+                "type": "address"
+            }
+        ],
+        "name": "OwnableInvalidOwner",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
+            }
+        ],
+        "name": "OwnableUnauthorizedAccount",
+        "type": "error"
+    },
+    {
+        "inputs": [],
+        "name": "ReentrancyGuardReentrantCall",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "token",
+                "type": "address"
+            }
+        ],
+        "name": "SafeERC20FailedOperation",
+        "type": "error"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "sender",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "treatsUsed",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "newTrainers",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "ref",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "referrerTreatsUsed",
+                "type": "uint256"
+            }
+        ],
+        "name": "Compound",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "sender",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "amountToSpend",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "protocolAddress",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "protocolFeePlsValue",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "minTokenAmount",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "tokenAmountOut",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "ref",
+                "type": "address"
+            }
+        ],
+        "name": "DepositPls",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "sender",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "ref",
+                "type": "address"
+            }
+        ],
+        "name": "DepositToken",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "previousOwner",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "OwnershipTransferred",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "initialized",
+                "type": "bool"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "marketToken",
+                "type": "uint256"
+            }
+        ],
+        "name": "SeedMarket",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "sender",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "senderTreatValue",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "protocolAddress",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "protocolFee",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "burnAddress",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "burnFee",
+                "type": "uint256"
+            }
+        ],
+        "name": "Withdraw",
+        "type": "event"
+    },
+    {
+        "inputs": [],
+        "name": "TREATS_TO_SPAWN_1TRAINER",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "burnAddress",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "rt",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "rs",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "bs",
+                "type": "uint256"
+            }
+        ],
+        "name": "calculateTrade",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "pure",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "contractBalance",
+                "type": "uint256"
+            }
+        ],
+        "name": "calculateTreatBuy",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
+        "name": "calculateTreatBuySimple",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "treats",
+                "type": "uint256"
+            }
+        ],
+        "name": "calculateTreatSell",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "claimedTokens",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "ref",
+                "type": "address"
+            }
+        ],
+        "name": "compound",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "minTokenAmount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "ref",
+                "type": "address"
+            }
+        ],
+        "name": "depositPLS",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "ref",
+                "type": "address"
+            }
+        ],
+        "name": "depositToken",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getBalance",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getHalvingPercentage",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getMyTreats",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "adr",
+                "type": "address"
+            }
+        ],
+        "name": "getTreatsSinceLastHatch",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "initialized",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "lastTraining",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "lastWithdraw",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "marketToken",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "myEarnings",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "protocolAddress",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "referralRewards",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "referrals",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "renounceOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "routerDex",
+        "outputs": [
+            {
+                "internalType": "contract IRouter",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "seedMarket",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "token",
+        "outputs": [
+            {
+                "internalType": "contract IERC20",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "totalMiners",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "trainers",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "withdraw",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]
